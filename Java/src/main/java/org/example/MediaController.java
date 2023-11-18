@@ -2,52 +2,55 @@ package org.example;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MediaController {
 
-    // Simulate key press for Volume Up
-    public static void pressVolumeUpKey() {
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_UP);
-            robot.keyRelease(KeyEvent.VK_UP);
-            System.out.println("Volume Up key pressed successfully");
-        } catch (AWTException e) {
-            e.printStackTrace();
-            System.err.println("Error pressing Volume Up key");
-        }
+    private static final Map<String, Integer> KEY_MAP = new HashMap<>();
+
+    static {
+        // Map keys
+        KEY_MAP.put("next", KeyEvent.VK_N);
+        KEY_MAP.put("previous", KeyEvent.VK_P);
+        KEY_MAP.put("mute", KeyEvent.VK_M);
+        KEY_MAP.put("volume up", KeyEvent.VK_UP);
+        KEY_MAP.put("volume down", KeyEvent.VK_DOWN);
     }
 
-    // Simulate key press for Volume Down
-    public static void pressVolumeDownKey() {
-        try {
-            Robot robot = new Robot();
-            robot.keyPress(KeyEvent.VK_DOWN);
-            robot.keyRelease(KeyEvent.VK_DOWN);
-            System.out.println("Volume Down key pressed successfully");
-        } catch (AWTException e) {
-            e.printStackTrace();
-            System.err.println("Error pressing Volume Down key");
+    // Simulate key press for specified key
+    public static void pressKey(String key) {
+        if (KEY_MAP.containsKey(key)) {
+            int keyCode = KEY_MAP.get(key);
+            try {
+                Robot robot = new Robot();
+                robot.keyPress(keyCode);
+                robot.keyRelease(keyCode);
+                System.out.println("'" + key + "' key pressed successfully");
+            } catch (AWTException e) {
+                e.printStackTrace();
+                System.err.println("Error pressing '" + key + "' key");
+            }
+        } else {
+            System.out.println("Unknown command");
         }
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter a command (e.g., 'volume up', 'volume down'):");
-        String userInput = scanner.nextLine().toLowerCase();
+        while (true) {
+            System.out.println("Enter a command (e.g., 'next', 'previous', 'mute', 'volume up', 'volume down', 'exit'):");
+            String userInput = scanner.nextLine().toLowerCase();
 
-        // Map user input to actions
-        switch (userInput) {
-            case "volume up":
-                pressVolumeUpKey();
+            if ("exit".equals(userInput)) {
+                System.out.println("Exiting the program.");
                 break;
-            case "volume down":
-                pressVolumeDownKey();
-                break;
-            default:
-                System.out.println("Unknown command");
+            }
+
+            // Map user input to actions
+            pressKey(userInput);
         }
     }
 }
