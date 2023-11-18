@@ -10,8 +10,8 @@
     a. system initiation gesture: wave
     b. next: sweeping left
     c. previous: sweeping right
-    d. volume up: swapping up
-    e. volume down: swapping down
+    d. volume up: full circle to the right
+    e. volume down: full circle to the left
     f. mute: fist closed 
     g. system shutdown: with gesture + with marker on remote (TUIO)
 
