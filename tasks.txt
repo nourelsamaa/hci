@@ -1,0 +1,18 @@
+1. UI
+    a. load diff content based on context
+        i. nighttime vs daytime UI
+        ii. feedback:
+            a. "application started" 
+            b. loading during recognition
+            c. alert if space is too far or too close
+
+2. mediapipe
+    a. system initiation gesture: wave
+    b. next: sweeping left
+    c. previous: sweeping right
+    d. volume up: swapping up
+    e. volume down: swapping down
+    f. mute: fist closed 
+    g. system shutdown: with gesture + with marker on remote (TUIO)
+
+3. TUIO
