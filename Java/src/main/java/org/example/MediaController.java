@@ -20,7 +20,7 @@ public class MediaController {
     }
 
     // Simulate key press for specified key
-    public static void pressKey(String key) {
+    public void pressKey(String key) {
         if (KEY_MAP.containsKey(key)) {
             int keyCode = KEY_MAP.get(key);
             try {
@@ -37,20 +37,5 @@ public class MediaController {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("Enter a command (e.g., 'next', 'previous', 'mute', 'volume up', 'volume down', 'exit'):");
-            String userInput = scanner.nextLine().toLowerCase();
-
-            if ("exit".equals(userInput)) {
-                System.out.println("Exiting the program.");
-                break;
-            }
-
-            // Map user input to actions
-            pressKey(userInput);
-        }
-    }
+    // You might have additional methods or functionalities here
 }
