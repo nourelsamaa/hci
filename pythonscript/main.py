@@ -1,17 +1,17 @@
 from camera_thread import CameraThread
 from mediapipe_thread import MediapipeThread
 from socket_thread import SocketThread
-import threading  # Add this import statement
+
 
 def main():
-    # Create lock and shared data structure
-    lock = threading.Lock()
-    shared_data = {"finger_coordinates": None}
+    
+    
+    shared_data = {"Move": None}
 
     # Create and start threads
     camera_thread = CameraThread()
-    mediapipe_thread = MediapipeThread(camera_thread, lock, shared_data)
-    socket_thread = SocketThread(mediapipe_thread, lock, shared_data)
+    mediapipe_thread = MediapipeThread(camera_thread, shared_data)
+    socket_thread = SocketThread(mediapipe_thread, shared_data)
 
     camera_thread.start()
     mediapipe_thread.start()
@@ -20,8 +20,7 @@ def main():
     try:
         while True:
             # Print shared data (for debugging purposes)
-            with lock:
-                print(shared_data)
+            pass
     except KeyboardInterrupt:
         # Handle Ctrl+C gracefully
         print("Terminating the application...")

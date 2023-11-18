@@ -4,10 +4,9 @@ import json
 import threading
 
 class SocketThread(threading.Thread):
-    def __init__(self, mediapipe_thread, lock, shared_data):
+    def __init__(self, mediapipe_thread, shared_data):
         super(SocketThread, self).__init__()
         self.mediapipe_thread = mediapipe_thread
-        self.lock = lock
         self.shared_data = shared_data
         self.running = True
 
@@ -20,14 +19,13 @@ class SocketThread(threading.Thread):
         try:
             uri = "ws://localhost:8000"  # Adjust the URI to match your WebSocket server
             while self.running:
-                # Use lock to ensure safe access of shared data
-                with self.lock:
-                    hand_coordinates = self.shared_data.get("finger_coordinates")
+                
+                hand_coordinates = self.shared_data.get("Move")
 
                 # Check if hand_coordinates is not None (to handle initial case)
                 if hand_coordinates is not None:
                     # Encode the coordinates as JSON
-                    coordinates_json = json.dumps({"x": hand_coordinates[0], "y": hand_coordinates[1], "z": hand_coordinates[2]})
+                    coordinates_json = json.dumps({"Move" : hand_coordinates})
                     print(coordinates_json)
 
                     # Use asyncio event loop to run the send_message function

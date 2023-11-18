@@ -11,7 +11,13 @@ class MediapipeThread(threading.Thread):
         self.mp_hands = mp.solutions.hands
         self.hands = self.mp_hands.Hands()
 
-    def extract_finger_coordinates(self, hand_landmarks): #Implement your code here
+    def extract_finger_coordinates(self, hand_landmarks):
+        """
+        Implement your code here!
+        please return one variable at the end
+        dont forget to change the function name here and down
+        
+        """
         index_finger_tip = hand_landmarks.landmark[8]
         return index_finger_tip.x, index_finger_tip.y, index_finger_tip.z
 
@@ -22,5 +28,5 @@ class MediapipeThread(threading.Thread):
                 results = self.hands.process(image)
                 if results.multi_hand_landmarks:
                     hand_landmarks = results.multi_hand_landmarks[0]  # Assuming only one hand is detected
-                    x, y, z = self.extract_finger_coordinates(hand_landmarks)   #Change only if u changed the function name above
-                    self.shared_data["finger_coordinates"] = (x, y, z)
+                    move = self.extract_finger_coordinates(hand_landmarks)   #Change only if u changed the function name above
+                    self.shared_data["Move"] = move
